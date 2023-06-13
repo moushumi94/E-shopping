@@ -136,8 +136,8 @@ class CategoryController extends Controller
             if(File::exists($path)){
               File::delete($path);
             }
-         
-         $category->delete();
+            
+            $category->delete();
         }
         return redirect('/categories')->with('status',"Categories Deleted Successfully");
     }
