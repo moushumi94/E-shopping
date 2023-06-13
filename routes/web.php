@@ -42,9 +42,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
     Route::post('/store-categories',[CategoryController::class, 'store'])->name('category.store');
 
-    Route::get('/category-edit/{id}',[CategoryController::class, 'edit'])->name('product.edit');
+    Route::get('/category-edit/{id}',[CategoryController::class, 'edit'])->name('category.edit');
 
-    Route::post('update/{id}',[CategoryController::class, 'update'])->name('category.update');
+    Route::post('/category-update/{id}',[CategoryController::class, 'update'])->name('category.update');
+
+    Route::get('/category-delete/{id}',[CategoryController::class, 'destroy'])->name('category.destroy');
 
 
     #products
@@ -53,6 +55,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::post('/store-products',[ProductController::class, 'store'])->name('product.store');
     Route::get('product-edit/{id}',[ProductController::class, 'edit'])->name('product.edit');
     Route::post('update/{id}',[ProductController::class, 'update'])->name('product.update');
+    Route::get('delete/{id}',[ProductController::class, 'destroy'])->name('destroy');
 
   /*  Route::get('product/add',[ProductController::class, 'create'])->name('product.create');
     Route::post('product/store',[ProductController::class, 'store'])->name('product.store');

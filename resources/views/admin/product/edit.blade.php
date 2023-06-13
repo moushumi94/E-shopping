@@ -42,18 +42,7 @@
            
            </div>
            
-           <div class="col-md-6">
-            <label for="">Category</label>
-                            <select class="form-control @error('category') is-invalid @enderror"  name="category">
-                                <option value="">Select category</option>
-                                <option value="t-shirts" {{ $product->category == "t-shirts" ? 'selected' : ''}} >T-shirt</option>
-                                <option value="shoes" {{ $product->category == "shoes" ? 'selected' : ''}}>Shoe</option>
-                                 <option value="bags" {{ $product->category == "bags" ? 'selected' : ''}}>Bag</option>
-                            </select>
-                            @if ($errors->has('category')) <div class="invalid-feedback">{{ $errors->first('category') }}</div>@endif
-                        </div>
-
-           <div class="col-md-12">
+            <div class="col-md-12">
             <label for="image">image</label>
             @if($product->image)
             <img src="{{asset('assets/product/'. $product->image)}}" class="w-5" alt="img">

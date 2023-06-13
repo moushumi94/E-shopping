@@ -24,7 +24,7 @@
      <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
+               
                 <th>IMAGE</th>
                 <th>CATEGORY NAME</th>
                 <th>DESCRIPTION</th>
@@ -35,12 +35,12 @@
         @if(count($categories) > 0)
             @foreach($categories as $item)
              <tr>
-                <td>{{$item->id}}</td>
+               
                 <td>
                    <img src="{{asset('assets/product/'. $item->image)}}" class="w-25" alt="img"> </td>
                 <td>{{$item->name}}</td>
                 <td>{{$item->description}}</td>
-                <td><a href="{{url('/delete', $item->id)}}"><button class="btn btn-danger">Delete</button></a></td>
+                <td><a href="{{url('/category-delete', $item->id)}}"><button class="btn btn-danger">Delete</button></a></td>
                 <td><a href="{{url('/category-edit', $item->id)}}"><button class="btn btn-success">Edit</button></a></td>
              </tr>
             @endforeach

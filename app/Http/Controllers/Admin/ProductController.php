@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
@@ -19,7 +21,7 @@ class ProductController extends Controller
         if($search != ''){
             
     
-            $products = Product::where('name','LIKE',"%$search%")->Orwhere('price','LIKE',"%$search%")->paginate(10);
+            $products = Product::where('name','LIKE',"%$search%")->Orwhere('description','LIKE',"%$search%")->paginate(10);
         }else{
            
             $products = Product::paginate(10);
@@ -100,6 +102,7 @@ class ProductController extends Controller
      */
     public function update(Request $request,$id)
     {
+
         $this->validate($request, [
             'name' => 'required',
             'price' => 'required',
@@ -128,14 +131,25 @@ class ProductController extends Controller
         $event->update();
       
 
-        return redirect('/dashboard')->with('status',"Product Updated Successfully");
+        return redirect('/products')->with('status',"Product Updated Successfully");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+         $product = Product::find($id);
+         
+
+            $path= 'assets/product/'. $product->image;
+            if(File::exists($path)){
+              File::delete($path);
+            }
+         
+         $product->delete();
+
+        return redirect('/products')->with('status',"Product Deleted Successfully");
     }
+
 }

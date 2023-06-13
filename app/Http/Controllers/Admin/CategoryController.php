@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -81,8 +82,9 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
+        
         //return view('admin.category.add');
          $category = Category::find($id);
           return view('admin.category.edit')->with(compact('category'));
@@ -93,6 +95,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+  
         $this->validate($request, [
             'name' => 'required',
            
@@ -127,7 +130,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-         $category = Category::destroy($id);
-        return redirect(route('/categories'));
+         $category = Category::find($id);
+         if($category->image){
+        $path= 'assets/product/'. $category->image;
+            if(File::exists($path)){
+              File::delete($path);
+            }
+         
+         $category->delete();
+        }
+        return redirect('/categories')->with('status',"Categories Deleted Successfully");
     }
 }
